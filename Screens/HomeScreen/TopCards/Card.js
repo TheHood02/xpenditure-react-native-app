@@ -14,7 +14,7 @@ const Card = (props) => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
         width: '45%',
         height: 100,
         marginBottom: 10,

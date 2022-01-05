@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View, Button } from 'react-native';
 import TopCards from './TopCards/TopCards';
 import MyAppText from '../../CustomComponents/MyAppText'
+import TransactionsList from './TransactionsList';
 
 const HomeScreen = ({ navigation }) => {
     return(
@@ -21,14 +22,18 @@ const HomeScreen = ({ navigation }) => {
             >
                 <TopCards />
             </LinearGradient>
-            <MyAppText>Transactions</MyAppText>
-            <View style={styles.button}>
-                <Button 
-                    title='Add'
-                    // onPress={navigation.navigate('AddTransactionScreen')}
-                />
+
+            {/* TODO: Add a Poppins-Medium font family */}
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 20, marginHorizontal: 12}}>
+                <MyAppText style={{fontSize: 25, color:'#AD00FF'}}>Transactions</MyAppText>
+                <View style={styles.button}>
+                    <Button 
+                        title='Add'
+                        // onPress={navigation.navigate('AddTransactionScreen')}
+                    />
+                </View>
             </View>
-            <MyAppText>hie</MyAppText>
+            <TransactionsList />
         </View>
         
     )
