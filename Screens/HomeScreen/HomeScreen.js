@@ -7,6 +7,10 @@ import MyAppText from '../../CustomComponents/MyAppText'
 import TransactionsList from './TransactionsList';
 
 const HomeScreen = ({ navigation }) => {
+
+    const changeScreen = () => {
+    }
+
     return(
         <View style={styles.body}>
             <LinearGradient 
@@ -29,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.button}>
                     <Button 
                         title='Add'
-                        // onPress={navigation.navigate('AddTransactionScreen')}
+                        onPress={() => navigation.navigate('AddTransactionScreen')}
                     />
                 </View>
             </View>
