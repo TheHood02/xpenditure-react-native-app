@@ -35,11 +35,12 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <NavigationContainer>
-        <MyStack />
-      </NavigationContainer>
+      // <NavigationContainer>
+      //   <MyStack />
+      // </NavigationContainer>
       // <HomeScreen />
       // <Sandbox />
+      <AddTransactionScreen />
     );
   } else {
     return(

@@ -8,9 +8,6 @@ import TransactionsList from './TransactionsList';
 
 const HomeScreen = ({ navigation }) => {
 
-    const changeScreen = () => {
-    }
-
     return(
         <View style={styles.body}>
             <LinearGradient 
