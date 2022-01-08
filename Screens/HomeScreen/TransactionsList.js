@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import firebase from '../../database/firebaseDB'
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import MyAppText from '../../CustomComponents/MyAppText';
 import ItemCard from './ItemCard';
+import { useFocusEffect } from '@react-navigation/native';
 
 const TransactionsList = () => {
 
@@ -16,7 +16,8 @@ const TransactionsList = () => {
     const db = getFirestore();
     const firestoreRef = collection(db, 'transactions')
 
-    useEffect(() => {
+    useFocusEffect(
+        React.useCallback(() => {
         getDocs(firestoreRef)
             .then((snapshot) => {
                 let useArr = [];
@@ -30,7 +31,8 @@ const TransactionsList = () => {
                     useArr
                 })
             })
-    }, [])
+        }, [])
+    );
     
     return(
         <View style={{padding: 10}}>

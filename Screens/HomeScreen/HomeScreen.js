@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-// import LinearGradient from 'react-native-linear-gradient';
 import { StyleSheet, View, Button } from 'react-native';
 import TopCards from './TopCards/TopCards';
 import MyAppText from '../../CustomComponents/MyAppText'

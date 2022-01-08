@@ -1,14 +1,75 @@
 import * as React from 'react';
-import { StyleSheet, View, TextInput, Button } from 'react-native';
+import { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
+import firebase from '../../database/firebaseDB';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import MyAppText from '../../CustomComponents/MyAppText';
+import { useNavigation } from '@react-navigation/native';
 
-const AddTransactionForm = () => {
+const AddTransactionForm = (props) => {
+
+
+    const navigation = useNavigation();
+    // init services
+    const db = getFirestore();
+    // collection ref
+    const firestoreRef = collection(db, 'transactions')
+
+    const [loading, setLoading] = useState({
+        isLoading: true,
+        amount: '',
+        from: '',
+        name: ''
+    })
+
+    const cancelWrite = () => {
+        setLoading({
+            name: '',
+            from: '',
+            amount: '',
+            isLoading: false
+        })
+        navigation.navigate('HomeScreen')
+    }
+
+    const storeTransactionDetails = () => {
+        const state = loading;
+        state.isLoading = true;
+        setLoading(state);
+
+        addDoc(firestoreRef, {
+            name: loading.name,
+            from: loading.from,
+            amount: loading.amount
+        }).then((res) => {
+            setLoading({
+                name: '',
+                from: '',
+                amount: '',
+                isLoading: false
+            })
+            navigation.navigate('HomeScreen')
+        })
+        .catch((err) => {
+            console.log('Error found: ', err);
+            const state = loading;
+            state.isLoading = false;
+            setLoading(state);
+        })
+    }
+
+    const inputValueUpdate = (val, prop) => {
+        const state = loading;
+        state[prop] = val;
+        setLoading(state);
+    }
+
     return(
         <View style={styles.container}>
             <LinearGradient
-                style={{height:'100%', alignItems:'center'}}
-                colors={['#AD00FF', '#8F3528']} 
+                style={styles.gradient}
+                colors={['#8913C1', 'rgba(189, 11, 108, 0.7)']} 
                 start={{
                     x: 0,
                     y: 0
@@ -18,39 +79,49 @@ const AddTransactionForm = () => {
                     y: 1
                 }}
             >
-                <View>
-                    <MyAppText>Enter the Amount Spent:</MyAppText>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='e.g. 6'
-                    />
+                <View style={styles.inputFields}>
+                    <View>
+                        <MyAppText>Enter the Amount Spent:</MyAppText>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='e.g. 6'
+                            onChangeText={(val) => inputValueUpdate(val, 'amount')}
+                        />
+                    </View>
+                    
+                    <View>
+                        <MyAppText>Enter the Name of Product:</MyAppText>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='e.g. Bus Ticket'
+                            onChangeText={(val) => inputValueUpdate(val, 'name')}
+                        />
+                    </View>
+                    
+                    <View>
+                        <MyAppText>Enter the Method of Payment:</MyAppText>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='e.g. Wallet'
+                            onChangeText={(val) => inputValueUpdate(val, 'from')}
+                        />
+                    </View>
                 </View>
                 
-                <View>
-                    <MyAppText>Enter the Name of Product:</MyAppText>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='e.g. Bus Ticket'
-                    />
-                </View>
                 
-                <View>
-                    <MyAppText>Enter the Method of Payment:</MyAppText>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='e.g. Wallet'
-                    />
-                </View>
-                
-                <View>
-                    <Button 
-                        title='Cancel'
-                        color='#fff'
-                    />
-                    <Button 
-                        title='Confirm'
-                        color='#5885FF'
-                    />
+                <View style={styles.buttons}>
+                    <TouchableOpacity
+                        style={styles.btn1}
+                        onPress={() => cancelWrite()}
+                    >
+                        <MyAppText>Cancel</MyAppText>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.btn2}
+                        onPress={() => storeTransactionDetails()}
+                    >
+                        <MyAppText style={{color:'#5885FF'}}>Confirm</MyAppText>
+                    </TouchableOpacity>
                 </View>
             </LinearGradient>
         </View>
@@ -59,15 +130,47 @@ const AddTransactionForm = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: '80vh',
-        // backgroundColor: '#bcbcbc'
+        height: '80%',
+        paddingHorizontal: 15,
+    },
+    gradient: {
+        height:'100%',
+        justifyContent: 'space-between',
+        alignItems:'center', 
+        borderRadius: 10, 
+        marginTop: 20
+    },
+    inputFields: {
+        height: '50%',
+        justifyContent: 'space-around',
+        marginTop: 20
     },
     input: {
-        width: 200,
+        width: 225,
         backgroundColor: '#fff',
         borderRadius: 5,
         paddingHorizontal: 10,
-        paddingVertical: 8
+        paddingVertical: 8,
+        marginTop: 8
+    },
+    buttons: {
+        width: 225,
+        display: 'flex', 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: '35%'
+    },
+    btn1: {
+        backgroundColor: '#5885FF',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 50
+    },
+    btn2: {
+        backgroundColor: 'white',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 50
     }
 })
 
