@@ -3,8 +3,8 @@ import * as Fonts from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './Screens/HomeScreen/HomeScreen'
-import AddTransactionScreen from './Screens/AddTransactionScreen/AddTransactionScreen';
+import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
+import AddTransactionScreen from './src/Screens/AddTransactionScreen/AddTransactionScreen';
 import Sandbox from './Sandbox';
 
 const getFonts = () => Fonts.loadAsync({

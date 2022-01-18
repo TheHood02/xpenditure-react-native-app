@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     body: {
-        height: '100%',
+        // height: '100%',
         backgroundColor: '#031442'
     },
     button: {

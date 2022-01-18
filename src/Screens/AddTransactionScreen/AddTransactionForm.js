@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
-import firebase from '../../database/firebaseDB';
+import firebase from '../../../database/firebaseDB';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import MyAppText from '../../CustomComponents/MyAppText';
 import { useNavigation } from '@react-navigation/native';

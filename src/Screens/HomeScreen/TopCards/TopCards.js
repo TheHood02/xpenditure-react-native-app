@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import firebase from '../../../database/firebaseDB';
+import firebase from '../../../../database/firebaseDB';
 import { getFirestore, getDoc, doc } from 'firebase/firestore'
 import Card from './Card';
 import MyAppText from '../../../CustomComponents/MyAppText';

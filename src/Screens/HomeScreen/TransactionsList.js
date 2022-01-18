@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
-import firebase from '../../database/firebaseDB'
+import firebase from '../../../database/firebaseDB'
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import ItemCard from './ItemCard';
 import { useFocusEffect } from '@react-navigation/native';
