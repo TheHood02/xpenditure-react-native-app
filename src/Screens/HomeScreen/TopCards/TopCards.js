@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { StyleSheet, View, Pressable } from "react-native";
+
 // TODO: use Pressable on yash's to change username on click
-// import firebase from "../../../../database/firebaseDB";
+
 import { getFirestore, getDoc, doc } from "firebase/firestore";
 import Card from "./Card";
 import MyAppText from "../../../CustomComponents/MyAppText";
@@ -61,13 +62,11 @@ const TopCards = () => {
 
   const onPress = () => {
     setModalVisible(!modalVisible);
-    console.log("hi");
   };
 
   return (
     <View style={{ padding: 10 }}>
       <EditBudgetModal modalHandler={onPress} modalVisible={modalVisible} />
-      {/* modal above */}
       <MyAppText>yash's</MyAppText>
       <View style={styles.container}>
         <Card title={cardNames[0].name} func={onPress} amount={cardNames[0].amount} enableTouch={false} />
@@ -81,7 +80,6 @@ const TopCards = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     height: "30%",
     width: "100%",
     flexDirection: "row",

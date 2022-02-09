@@ -8,7 +8,7 @@ import TransactionsList from "./TransactionsList";
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.body}>
-      <StatusBar backgroundColor="#000000" />
+      <StatusBar backgroundColor="#710193" />
       <LinearGradient
         colors={["#AD00FF", "#8F3528"]}
         start={{

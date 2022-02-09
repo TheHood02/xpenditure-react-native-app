@@ -80,9 +80,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     color: "#000",
-    // marginBottom: 15,
     marginRight: 5,
-    // textAlign: "center",
   },
   inputText: {
     width: 100,
@@ -99,8 +97,6 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: "#fff",
-    // borderWidth: 1,
-    // borderColor: "#AD00FF",
   },
   buttonView: {
     flexDirection: "row",
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontWeight: "bold",
-    // textAlign: "center",
+    textAlign: "center",
   },
 });
 
