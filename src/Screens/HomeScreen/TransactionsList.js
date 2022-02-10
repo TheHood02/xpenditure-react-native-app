@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, FlatList } from "react-native";
-import firebase from "../../../database/firebaseDB";
 import { getFirestore, collection, getDocs, orderBy, query, onSnapshot } from "firebase/firestore";
 import ItemCard from "./ItemCard";
 import { useFocusEffect } from "@react-navigation/native";
@@ -15,7 +14,6 @@ const TransactionsList = () => {
   const db = getFirestore();
   const firestoreRef = collection(db, "transactions");
   const q = query(firestoreRef, orderBy("timestamp", "desc"));
-  console.log(q);
   useFocusEffect(
     React.useCallback(() => {
       // getDocs(firestoreRef).then((snapshot) => {

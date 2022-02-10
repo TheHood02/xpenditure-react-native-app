@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StyleSheet, View, Pressable } from "react-native";
 
 // TODO: use Pressable on yash's to change username on click
@@ -29,25 +29,19 @@ const TopCards = () => {
   useFocusEffect(
     React.useCallback(() => {
       const state = cardNames;
+      const references = [docRef1, docRef2, docRef3, docRef4];
 
-      getDoc(docRef1).then((doc) => {
-        const amount = doc.data()["amount"];
-        state[0] = { ...state[0], amount };
-      });
-      getDoc(docRef2).then((doc) => {
-        const amount = doc.data()["amount"];
-        state[1] = { ...state[1], amount };
-      });
-      getDoc(docRef3).then((doc) => {
-        const amount = doc.data()["amount"];
-        state[2] = { ...state[2], amount };
-      });
-      getDoc(docRef4).then((doc) => {
-        const amount = doc.data()["amount"];
-        state[3] = { ...state[3], amount };
-        setCardNames(state);
-        setLoading(true);
-      });
+      for (let i = 0; i < references.length; i++) {
+        getDoc(references[i]).then((doc) => {
+          const amount = doc.data()["amount"];
+          state[i] = { ...state[i], amount };
+          console.log(state[i]);
+          if (i === 3) {
+            setCardNames(state);
+            setLoading(false);
+          }
+        });
+      }
     }, [])
   );
 
