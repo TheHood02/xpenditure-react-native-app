@@ -1,18 +1,10 @@
 import * as React from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MyAppText from "../../CustomComponents/MyAppText";
 
 const ItemCard = (props) => {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        borderBottomColor: "#858585",
-        borderBottomWidth: 2,
-        padding: 2,
-      }}
-    >
+    <View style={styles.itemCardContainer}>
       <View>
         <MyAppText style={{ fontSize: 20 }}>{props.name}</MyAppText>
         <MyAppText style={{ fontSize: 12, color: "#BCBCBC", letterSpacing: 0.6 }}>
@@ -26,5 +18,15 @@ const ItemCard = (props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  itemCardContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomColor: "#858585",
+    borderBottomWidth: 2,
+    padding: 2,
+  },
+});
 
 export default ItemCard;

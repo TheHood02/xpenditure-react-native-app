@@ -35,7 +35,6 @@ const TopCards = () => {
         getDoc(references[i]).then((doc) => {
           const amount = doc.data()["amount"];
           state[i] = { ...state[i], amount };
-          console.log(state[i]);
           if (i === 3) {
             setCardNames(state);
             setLoading(false);
@@ -56,6 +55,7 @@ const TopCards = () => {
 
   const onPress = () => {
     setModalVisible(!modalVisible);
+    setLoading(!loading);
   };
 
   return (
@@ -63,10 +63,10 @@ const TopCards = () => {
       <EditBudgetModal modalHandler={onPress} modalVisible={modalVisible} />
       <MyAppText>yash's</MyAppText>
       <View style={styles.container}>
-        <Card title={cardNames[0].name} func={onPress} amount={cardNames[0].amount} enableTouch={false} />
-        <Card title={cardNames[1].name} amount={cardNames[1].amount} enableTouch={true} />
-        <Card title={cardNames[2].name} amount={cardNames[2].amount} enableTouch={true} />
-        <Card title={cardNames[3].name} amount={cardNames[3].amount} enableTouch={true} />
+        <Card title={cardNames[0].name} func={onPress} amount={cardNames[0].amount} disableTouch={false} />
+        <Card title={cardNames[1].name} amount={cardNames[1].amount} disableTouch={true} />
+        <Card title={cardNames[2].name} amount={cardNames[2].amount} disableTouch={true} />
+        <Card title={cardNames[3].name} amount={cardNames[3].amount} disableTouch={true} />
       </View>
     </View>
   );

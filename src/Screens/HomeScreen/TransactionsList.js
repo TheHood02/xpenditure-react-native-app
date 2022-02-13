@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, FlatList } from "react-native";
-import { getFirestore, collection, getDocs, orderBy, query, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import ItemCard from "./ItemCard";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -16,16 +16,6 @@ const TransactionsList = () => {
   const q = query(firestoreRef, orderBy("timestamp", "desc"));
   useFocusEffect(
     React.useCallback(() => {
-      // getDocs(firestoreRef).then((snapshot) => {
-      //   let useArr = [];
-      //   snapshot.docs.forEach((doc) => {
-      //     useArr.push({ ...doc.data(), id: doc.id });
-      //   });
-      //   setLoading({
-      //     isLoading: false,
-      //     useArr,
-      //   });
-      // });
       // used "onSnapshot" so that we can use queries(orderby, only fetch specific docs from collection, add conditions basically...)
       onSnapshot(q, (snapshot) => {
         let useArr = [];

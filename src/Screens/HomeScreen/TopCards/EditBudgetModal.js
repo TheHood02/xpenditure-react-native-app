@@ -5,7 +5,6 @@ import MyAppText from "../../../CustomComponents/MyAppText";
 
 const EditBudgetModal = (props) => {
   const BUDGET_ID = "rjT37hqQMDOPyViBWXcF";
-  // TODO: make it so that id is passed in props and i can update wallet that way too
   // how to update wallet? auto/manual/both?
   // store last time wallet was updated and auto update from that time transaction
 
