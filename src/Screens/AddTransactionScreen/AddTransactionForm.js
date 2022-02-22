@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: "35%",
-    backgroundColor: 'red'
+    // backgroundColor: 'red'
   },
   btn1: {
     backgroundColor: "#5885FF",
