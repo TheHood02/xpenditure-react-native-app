@@ -11,7 +11,9 @@ const firebaseConfig = {
     appId: "1:1023234856492:web:e0eb726c85160dab84a389"
 };
 
-firebase.initializeApp(firebaseConfig);
-firebase.firestore();
+const app = initializeApp(firebaseConfig);
+// firebase.firestore().settings({ merge: true,experimentalForceLongPolling: true });
+// const db = initializeFirestore(firebaseApp, {useFetchStreams: false})
+// firebase.firestore();
 
-export default firebase;
+export default app;

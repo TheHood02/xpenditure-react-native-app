@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Pressable } from "react-native";
-
+import app from "../../../../database/firebaseDB";
 // TODO: use Pressable on yash's to change username on click
 
 import { getFirestore, getDoc, doc } from "firebase/firestore";
@@ -20,7 +20,7 @@ const TopCards = () => {
   // *UNCOMMENT THIS WHEN DONE
   const [loading, setLoading] = useState(true);
 
-  const db = getFirestore();
+  const db = getFirestore(app);
   const docRef1 = doc(db, "target", "rjT37hqQMDOPyViBWXcF");
   const docRef2 = doc(db, "spent", "4WIGNfepWhQXjtAOc7aV");
   const docRef3 = doc(db, "remaining", "XdWGwuDFUmnnMzHyOmmX");
@@ -76,7 +76,6 @@ const TopCards = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "30%",
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",

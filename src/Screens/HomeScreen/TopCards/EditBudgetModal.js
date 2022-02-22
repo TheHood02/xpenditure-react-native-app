@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, Modal, TouchableOpacity, TextInput } from "react-native";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import MyAppText from "../../../CustomComponents/MyAppText";
+import app from "../../../../database/firebaseDB";
 
 const EditBudgetModal = (props) => {
   const BUDGET_ID = "rjT37hqQMDOPyViBWXcF";
@@ -14,7 +15,7 @@ const EditBudgetModal = (props) => {
     setUpdateBudget(parseInt(val));
   };
 
-  const db = getFirestore();
+  const db = getFirestore(app);
   const docRef = doc(db, "target", BUDGET_ID);
 
   const editBudget = () => {

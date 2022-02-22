@@ -2,15 +2,15 @@ import * as React from "react";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
-import firebase from "../../../database/firebaseDB";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import MyAppText from "../../CustomComponents/MyAppText";
 import { useNavigation } from "@react-navigation/native";
+import app from "../../../database/firebaseDB";
 
 const AddTransactionForm = (props) => {
   const navigation = useNavigation();
   // init services
-  const db = getFirestore();
+  const db = getFirestore(app);
   // collection ref
   const firestoreRef = collection(db, "transactions");
 
@@ -39,7 +39,7 @@ const AddTransactionForm = (props) => {
     state.isLoading = true;
     setLoading(state);
 
-    zzaddDoc(firestoreRef, {
+    addDoc(firestoreRef, {
       name: loading.name,
       from: loading.from,
       amount: loading.amount,
@@ -125,23 +125,25 @@ const AddTransactionForm = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "80%",
+    height: "95%",
     paddingHorizontal: 15,
   },
   gradient: {
     height: "100%",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     borderRadius: 10,
     marginTop: 20,
+    paddingVertical: 20,
+    paddingHorizontal: "10%"
   },
   inputFields: {
     height: "50%",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     marginTop: 20,
   },
   input: {
-    width: 225,
+    width: "100%",
     backgroundColor: "#fff",
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -149,22 +151,23 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   buttons: {
-    width: 225,
+    width: "90%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: "35%",
+    backgroundColor: 'red'
   },
   btn1: {
     backgroundColor: "#5885FF",
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     borderRadius: 50,
   },
   btn2: {
     backgroundColor: "white",
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     borderRadius: 50,
   },
 });
