@@ -11,22 +11,32 @@ const TransactionsList = () => {
     useArr: [],
   });
 
+  // const [isMounted, setIsMounted] = useState();
+
   const db = getFirestore();
   const firestoreRef = collection(db, "transactions");
   const q = query(firestoreRef, orderBy("timestamp", "desc"));
   useFocusEffect(
     React.useCallback(() => {
+      let isMounted = true;
       // used "onSnapshot" so that we can use queries(orderby, only fetch specific docs from collection, add conditions basically...)
-      onSnapshot(q, (snapshot) => {
+      const unsubscribe = onSnapshot(q, (snapshot) => {
         let useArr = [];
         snapshot.docs.forEach((doc) => {
-          useArr.push({ ...doc.data(), id: doc.id });
+          if (isMounted) {
+            useArr.push({ ...doc.data(), id: doc.id });
+          }
         });
         setLoading({
           isLoading: false,
           useArr,
         });
       });
+
+      return () => {
+        isMounted = false;
+        unsubscribe();
+      };
     }, [])
   );
 
@@ -44,7 +54,7 @@ const TransactionsList = () => {
       <FlatList
         keyExtractor={(item) => item.id}
         data={loading.useArr}
-        renderItem={({ item }) => <ItemCard name={item.name} dateTime={convertDate(item["timestamp"])} amount={item.amount} from={item.from} />}
+        renderItem={({ item }) => <ItemCard name={item.name} dateTime={convertDate(item.timestamp)} amount={item.amount} from={item.from} />}
       />
     </View>
   );

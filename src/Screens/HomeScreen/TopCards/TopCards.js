@@ -60,7 +60,9 @@ const TopCards = () => {
 
   return (
     <View style={{ padding: 10 }}>
+      {/* modal */}
       <EditBudgetModal modalHandler={onPress} modalVisible={modalVisible} />
+      {/* modal */}
       <MyAppText>yash's</MyAppText>
       <View style={styles.container}>
         <Card title={cardNames[0].name} func={onPress} amount={cardNames[0].amount} disableTouch={false} />

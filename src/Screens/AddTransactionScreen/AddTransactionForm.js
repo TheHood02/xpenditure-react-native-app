@@ -39,7 +39,7 @@ const AddTransactionForm = (props) => {
     state.isLoading = true;
     setLoading(state);
 
-    addDoc(firestoreRef, {
+    zzaddDoc(firestoreRef, {
       name: loading.name,
       from: loading.from,
       amount: loading.amount,
@@ -86,17 +86,27 @@ const AddTransactionForm = (props) => {
         <View style={styles.inputFields}>
           <View>
             <MyAppText>Enter the Amount Spent:</MyAppText>
-            <TextInput style={styles.input} placeholder="e.g. 6" onChangeText={(val) => inputValueUpdate(val, "amount")} />
+            <TextInput style={styles.input} autoCapitalize="sentences" placeholder="e.g. 6" onChangeText={(val) => inputValueUpdate(val, "amount")} />
           </View>
 
           <View>
             <MyAppText>Enter the Name of Product:</MyAppText>
-            <TextInput style={styles.input} placeholder="e.g. Bus Ticket" onChangeText={(val) => inputValueUpdate(val, "name")} />
+            <TextInput
+              style={styles.input}
+              autoCapitalize="sentences"
+              placeholder="e.g. Bus Ticket"
+              onChangeText={(val) => inputValueUpdate(val, "name")}
+            />
           </View>
 
           <View>
             <MyAppText>Enter the Method of Payment:</MyAppText>
-            <TextInput style={styles.input} placeholder="e.g. Wallet" onChangeText={(val) => inputValueUpdate(val, "from")} />
+            <TextInput
+              style={styles.input}
+              autoCapitalize="sentences"
+              placeholder="e.g. Wallet"
+              onChangeText={(val) => inputValueUpdate(val, "from")}
+            />
           </View>
         </View>
 
