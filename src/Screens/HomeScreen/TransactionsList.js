@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, FlatList } from "react-native";
-import { getFirestore, collection, orderBy, query, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, orderBy, query, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import ListItem from "./ListItem";
 import { useFocusEffect } from "@react-navigation/native";
 import app from "../../../database/firebaseDB.js"
@@ -33,12 +33,10 @@ const TransactionsList = () => {
           isLoading: false,
           useArr,
         });
+        // if (loading.useArr) {
+        //   calculateTotalSpent();
+        // }
       })
-			let spent = 0;
-			loading.useArr.map((item) => spent = spent + Number(item.amount))
-			setSpent(spent)
-			console.log(spent)
-
 
       return () => {
         isMounted = false;
@@ -47,14 +45,19 @@ const TransactionsList = () => {
     }, [])
   );
 
-  // useEffect(() => {
-  //   console.log("hi")
-    
-  //   return () => {
-        
-  //   }
-  // }, [useArr])
-    
+  // const calculateTotalSpent = () => {
+  //   let total = 0;
+  //   const spentRef = doc(db, "spent", "4WIGNfepWhQXjtAOc7aV")
+
+  //   loading.useArr.map((item) => total = total + Math.floor(item.amount))
+  //   console.log(total)
+
+  //   if (typeof(total) === "number" ){
+  //     updateDoc(spentRef, {
+  //       amount: spent,
+  //     })
+  //   } 
+  // }
 
   const convertDate = (item) => {
     const formatDateOptions = { day: "numeric", month: "short", year: "2-digit" };

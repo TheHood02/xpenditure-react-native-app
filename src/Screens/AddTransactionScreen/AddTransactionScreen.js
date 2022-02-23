@@ -86,7 +86,12 @@ const AddTransactionScreen = ({navigation}) => {
         <View style={styles.inputFields}>
           <View>
             <MyAppText>Enter the Amount Spent:</MyAppText>
-            <TextInput style={styles.input} autoCapitalize="sentences" placeholder="e.g. 6" onChangeText={(val) => inputValueUpdate(val, "amount")} />
+            <TextInput 
+              style={styles.input} 
+              keyboardType="numeric" 
+              placeholder="e.g. 6" 
+              onChangeText={(val) => inputValueUpdate(val, "amount")} 
+            />
           </View>
 
           <View>
