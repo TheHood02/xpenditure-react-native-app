@@ -4,6 +4,7 @@ import MyAppText from "../../../CustomComponents/MyAppText";
 
 const Card = (props) => {
   return (
+    // <TouchableOpacity style={styles.card} onPress={() => props.func()} disabled={props.disableTouch}>
     <TouchableOpacity style={styles.card} onPress={() => props.func()} disabled={props.disableTouch}>
       <MyAppText>{props.title}</MyAppText>
       <MyAppText>Rs {props.amount}</MyAppText>

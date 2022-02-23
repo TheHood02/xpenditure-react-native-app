@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/Screens/HomeScreen/HomeScreen";
 import AddTransactionScreen from "./src/Screens/AddTransactionScreen/AddTransactionScreen";
 import Sandbox from "./Sandbox";
+import EditCardsScreen from "./src/Screens/EditCardsScreen/EditCardsScreen";
 
 const getFonts = () =>
   Fonts.loadAsync({
@@ -42,6 +43,13 @@ const MyStack = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="EditCardsScreen"
+        component={EditCardsScreen}
+        options={{
+          title: "Edit Cards"
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -54,9 +62,10 @@ export default function App() {
       <NavigationContainer>
         <MyStack />
       </NavigationContainer>
-      // <HomeScreen />
       // <Sandbox />
+      // <HomeScreen />
       // <AddTransactionScreen />
+      // <EditCardsScreen />
     );
   } else {
     return <AppLoading startAsync={getFonts} onFinish={() => setFontsLoaded(true)} onError={(err) => console.log(err)} />;

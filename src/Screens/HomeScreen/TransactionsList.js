@@ -12,11 +12,12 @@ const TransactionsList = () => {
     useArr: [],
   });
 
-  // const [isMounted, setIsMounted] = useState();
+	const [spent, setSpent] = useState();
 
   const db = getFirestore(app);
   const firestoreRef = collection(db, "transactions");
   const q = query(firestoreRef, orderBy("timestamp", "desc"));
+
   useFocusEffect(
     React.useCallback(() => {
       let isMounted = true;
@@ -26,13 +27,18 @@ const TransactionsList = () => {
         snapshot.docs.forEach((doc) => {
           if (isMounted) {
             useArr.push({ ...doc.data(), id: doc.id });
-          }
-        });
+					}
+        })
         setLoading({
           isLoading: false,
           useArr,
         });
-      });
+      })
+			let spent = 0;
+			loading.useArr.map((item) => spent = spent + Number(item.amount))
+			setSpent(spent)
+			console.log(spent)
+
 
       return () => {
         isMounted = false;
@@ -40,6 +46,15 @@ const TransactionsList = () => {
       };
     }, [])
   );
+
+  // useEffect(() => {
+  //   console.log("hi")
+    
+  //   return () => {
+        
+  //   }
+  // }, [useArr])
+    
 
   const convertDate = (item) => {
     const formatDateOptions = { day: "numeric", month: "short", year: "2-digit" };

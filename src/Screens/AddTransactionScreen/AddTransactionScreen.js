@@ -3,17 +3,11 @@ import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import app from "../../../database/firebaseDB";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
-// import AddTransactionForm from "./AddTransactionForm";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import MyAppText from "../../CustomComponents/MyAppText";
-// import { useNavigation } from "@react-navigation/native";
 
 const AddTransactionScreen = ({navigation}) => {
-  // init services
-  const db = getFirestore(app);
-  // collection ref
-  const firestoreRef = collection(db, "transactions");
-
+  
   const [loading, setLoading] = useState({
     isLoading: true,
     amount: "",
@@ -21,6 +15,11 @@ const AddTransactionScreen = ({navigation}) => {
     name: "",
     timestamp: "",
   });
+
+  // init services
+  const db = getFirestore(app);
+  // collection ref
+  const firestoreRef = collection(db, "transactions");
 
   const cancelWrite = () => {
     setLoading({
