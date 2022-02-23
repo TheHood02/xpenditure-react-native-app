@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   buttonCancel: {
     backgroundColor: "#fff",
-    borderWidth: 3,
+    borderWidth: 1,
     borderColor: "#AD00FF"
   },
   textStyle: {

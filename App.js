@@ -5,7 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/Screens/HomeScreen/HomeScreen";
 import AddTransactionScreen from "./src/Screens/AddTransactionScreen/AddTransactionScreen";
-import Sandbox from "./Sandbox";
 import EditCardsScreen from "./src/Screens/EditCardsScreen/EditCardsScreen";
 
 const getFonts = () =>
@@ -62,7 +61,6 @@ export default function App() {
       <NavigationContainer>
         <MyStack />
       </NavigationContainer>
-      // <Sandbox />
       // <HomeScreen />
       // <AddTransactionScreen />
       // <EditCardsScreen />
