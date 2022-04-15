@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, FlatList } from "react-native";
-import { getFirestore, collection, orderBy, query, onSnapshot, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, orderBy, query, onSnapshot, doc, getDoc, updateDoc } from "firebase/firestore";
 import ListItem from "./ListItem";
 import { useFocusEffect } from "@react-navigation/native";
 import app from "../../../database/firebaseDB.js"
@@ -12,12 +12,16 @@ const TransactionsList = () => {
     useArr: [],
   });
 
-	const [spent, setSpent] = useState();
-
   const db = getFirestore(app);
   const firestoreRef = collection(db, "transactions");
   const q = query(firestoreRef, orderBy("timestamp", "desc"));
-
+  
+  let total = 0;
+  let budget = 0;
+  const spentRef = doc(db, "spent", "4WIGNfepWhQXjtAOc7aV");
+  const budgetRef = doc(db, "target", "rjT37hqQMDOPyViBWXcF");
+  const remainingRef = doc(db, "remaining", "XdWGwuDFUmnnMzHyOmmX");
+  
   useFocusEffect(
     React.useCallback(() => {
       let isMounted = true;
@@ -33,9 +37,11 @@ const TransactionsList = () => {
           isLoading: false,
           useArr,
         });
-        // if (loading.useArr) {
-        //   calculateTotalSpent();
-        // }
+        // updateTotal();
+      })
+
+      getDoc(budgetRef).then((doc) => {
+        budget = doc.data()["amount"];
       })
 
       return () => {
@@ -44,20 +50,6 @@ const TransactionsList = () => {
       };
     }, [])
   );
-
-  // const calculateTotalSpent = () => {
-  //   let total = 0;
-  //   const spentRef = doc(db, "spent", "4WIGNfepWhQXjtAOc7aV")
-
-  //   loading.useArr.map((item) => total = total + Math.floor(item.amount))
-  //   console.log(total)
-
-  //   if (typeof(total) === "number" ){
-  //     updateDoc(spentRef, {
-  //       amount: spent,
-  //     })
-  //   } 
-  // }
 
   const convertDate = (item) => {
     const formatDateOptions = { day: "numeric", month: "short", year: "2-digit" };
@@ -68,13 +60,34 @@ const TransactionsList = () => {
     return output;
   };
 
+  const updateTotal = () => {
+    if (total === 0) return;
+    if (budget === 0) return;
+
+    updateDoc(spentRef, {
+      amount: total,
+    })
+
+    let remaining = budget - total;
+
+    updateDoc(remainingRef, {
+      amount: remaining,
+    })
+  }
+
   return (
     <View style={{ flex: 1,padding: 15 }}>
       <FlatList
         keyExtractor={(item) => item.id}
         data={loading.useArr}
-        renderItem={({ item }) => <ListItem name={item.name} dateTime={convertDate(item.timestamp)} amount={item.amount} from={item.from} />}
+        renderItem={({ item }) => {
+        {
+          total = total + Number(item.amount);
+        }
+        return <ListItem name={item.name} dateTime={convertDate(item.timestamp)} amount={item.amount} from={item.from} />
+        }}
       />
+      {updateTotal()}
     </View>
   );
 };

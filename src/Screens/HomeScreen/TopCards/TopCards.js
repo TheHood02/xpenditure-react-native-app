@@ -47,8 +47,9 @@ const TopCards = () => {
 
       return () => {
         isMounted = false;
+        setLoading(true);
       }
-  }, [])
+  }, [loading])
   );
 
   // * DONT UNCOMMENT THIS
