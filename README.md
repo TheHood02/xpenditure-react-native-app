@@ -10,9 +10,9 @@
 
 ##### App Screenshots:
 
-<img src="./assets/working-app-images/HomeScreen.png" width="200">
-<img src="./assets/working-app-images/AddTransactionScreen.png" width="200">
-<img src="./assets/working-app-images/EditCardsScreen.png" width="200">
+<img src="./assets/working-app-images/HomeScreen.png" alt="Home Screen" width="200">
+<img src="./assets/working-app-images/AddTransactionScreen.png" alt="Add Transaction Screen" width="200">
+<img src="./assets/working-app-images/EditCardsScreen.png" alt="Edit Cards Screen" width="200">
 
 ##### Design Templates:
 - These are the designs I made in Figma for the app.
