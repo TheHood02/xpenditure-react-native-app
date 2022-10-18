@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import MyAppText from "../../CustomComponents/MyAppText";
 import app from "../../../database/firebaseDB";
@@ -50,42 +50,41 @@ const EditCardsScreen = ({ navigation }) => {
   };
 
   return (
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
-            <MyAppText style={styles.text}>Edit Budget:</MyAppText>
-            <TextInput style={styles.inputField} onChangeText={(val) => budgetInput(val)} keyboardType="numeric" />
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
+              <MyAppText style={styles.text}>Edit Budget:</MyAppText>
+              <TextInput style={styles.inputField} onChangeText={(val) => budgetInput(val)} keyboardType="numeric" />
+            </View>
+            <View style={styles.buttonView}>
+              <TouchableOpacity style={[styles.button]} onPress={() => editBudget()}>
+                <MyAppText style={styles.textStyle}>Update</MyAppText>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.buttonCancel]} onPress={() => cancelUpdate()}>
+                <MyAppText style={{ ...styles.textStyle, color: "#AD00FF" }}>Cancel</MyAppText>
+              </TouchableOpacity>
+            </View>
           </View>
-
-          <View style={styles.buttonView}>
-            <TouchableOpacity style={[styles.button]} onPress={() => editBudget()}>
-              <MyAppText style={styles.textStyle}>Update</MyAppText>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.buttonCancel]} onPress={() => cancelUpdate()}>
-              <MyAppText style={{ ...styles.textStyle, color: "#AD00FF" }}>Cancel</MyAppText>
-            </TouchableOpacity>
+          <View style={styles.card}>
+            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
+              <MyAppText style={styles.text}>Update Wallet:</MyAppText>
+              <TextInput style={styles.inputField} onChangeText={(val) => walletInput(val)} keyboardType="numeric" />
+            </View>
+            <View style={styles.buttonView}>
+              <TouchableOpacity style={[styles.button]} onPress={() => editWallet()}>
+                <MyAppText style={styles.textStyle}>Update Wallet</MyAppText>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button]} onPress={() => editWallet()}>
+                <MyAppText style={styles.textStyle}>Add to existing value</MyAppText>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.buttonCancel]} onPress={() => cancelUpdate()}>
+                <MyAppText style={{ ...styles.textStyle, color: "#AD00FF" }}>Cancel</MyAppText>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-
-        <View style={styles.card}>
-          <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
-            <MyAppText style={styles.text}>Update Wallet:</MyAppText>
-            <TextInput style={styles.inputField} onChangeText={(val) => walletInput(val)} keyboardType="numeric" />
-          </View>
-
-          <View style={styles.buttonView}>
-            <TouchableOpacity style={[styles.button]} onPress={() => editWallet()}>
-              <MyAppText style={styles.textStyle}>Update Wallet</MyAppText>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button]} onPress={() => editWallet()}>
-              <MyAppText style={styles.textStyle}>Add to existing value</MyAppText>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.buttonCancel]} onPress={() => cancelUpdate()}>
-              <MyAppText style={{ ...styles.textStyle, color: "#AD00FF" }}>Cancel</MyAppText>
-            </TouchableOpacity>          
-          </View>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
   );
 };
 

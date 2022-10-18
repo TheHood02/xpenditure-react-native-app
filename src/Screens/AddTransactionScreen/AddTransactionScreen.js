@@ -2,12 +2,17 @@ import * as React from "react";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import app from "../../../database/firebaseDB";
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import MyAppText from "../../CustomComponents/MyAppText";
 
 const AddTransactionScreen = ({navigation}) => {
-  
+
+  // init services
+  const db = getFirestore(app);
+  // collection ref
+  const firestoreRef = collection(db, "transactions");
+
   const [loading, setLoading] = useState({
     isLoading: true,
     amount: "",
@@ -15,11 +20,6 @@ const AddTransactionScreen = ({navigation}) => {
     name: "",
     timestamp: "",
   });
-
-  // init services
-  const db = getFirestore(app);
-  // collection ref
-  const firestoreRef = collection(db, "transactions");
 
   const cancelWrite = () => {
     setLoading({
@@ -67,65 +67,68 @@ const AddTransactionScreen = ({navigation}) => {
     state[prop] = val;
     setLoading(state);
   };
+
   return (
-    <View style={{ backgroundColor: "#031442", height: "100%" }}>
-      {/* <AddTransactionForm navigation={navigation} /> */}
-      <View style={styles.container}>
-      <LinearGradient
-        style={styles.gradient}
-        colors={["#8913C1", "rgba(189, 11, 108, 0.7)"]}
-        start={{
-          x: 0,
-          y: 0,
-        }}
-        end={{
-          x: 1,
-          y: 1,
-        }}
-      >
-        <View style={styles.inputFields}>
-          <View>
-            <MyAppText>Enter the Amount Spent:</MyAppText>
-            <TextInput 
-              style={styles.input} 
-              keyboardType="numeric" 
-              placeholder="e.g. 6" 
-              onChangeText={(val) => inputValueUpdate(val, "amount")} 
-            />
-          </View>
-
-          <View>
-            <MyAppText>Enter the Name of Product:</MyAppText>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="sentences"
-              placeholder="e.g. Bus Ticket"
-              onChangeText={(val) => inputValueUpdate(val, "name")}
-            />
-          </View>
-
-          <View>
-            <MyAppText>Enter the Method of Payment:</MyAppText>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="sentences"
-              placeholder="e.g. Wallet"
-              onChangeText={(val) => inputValueUpdate(val, "from")}
-            />
-          </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={{ backgroundColor: "#031442", height: "100%" }}>
+        {/* <AddTransactionForm navigation={navigation} /> */}
+        <View style={styles.container}>
+          <LinearGradient
+            style={styles.gradient}
+            colors={["#8913C1", "rgba(189, 11, 108, 0.7)"]}
+            start={{
+              x: 0,
+              y: 0,
+            }}
+            end={{
+              x: 1,
+              y: 1,
+            }}
+          >
+            <View style={styles.inputFields}>
+              <View>
+                <MyAppText>Enter the Amount Spent:</MyAppText>
+                <TextInput
+                  style={styles.input}
+                  keyboardType="numeric"
+                  placeholder="e.g. 6"
+                  onChangeText={(val) => inputValueUpdate(val, "amount")}
+                />
+              </View>
+              <View>
+                <MyAppText>Enter the Name of Product:</MyAppText>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="sentences"
+                  placeholder="e.g. Bus Ticket"
+                  onChangeText={(val) => inputValueUpdate(val, "name")}
+                />
+              </View>
+              <View>
+                <MyAppText>Enter the Method of Payment:</MyAppText>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="sentences"
+                  placeholder="e.g. Wallet"
+                  onChangeText={(val) => inputValueUpdate(val, "from")}
+                />
+              </View>
+            </View>
+            <View style={styles.buttons}>
+              <TouchableOpacity style={styles.btn1} onPress={() => cancelWrite()}>
+                <MyAppText>Cancel</MyAppText>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btn2}
+                onPress={() => storeTransactionDetails()}
+              >
+                <MyAppText style={{ color: "#5885FF" }}>Confirm</MyAppText>
+              </TouchableOpacity>
+            </View>
+          </LinearGradient>
         </View>
-
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.btn1} onPress={() => cancelWrite()}>
-            <MyAppText>Cancel</MyAppText>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn2} onPress={() => storeTransactionDetails()}>
-            <MyAppText style={{ color: "#5885FF" }}>Confirm</MyAppText>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-    </View>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
